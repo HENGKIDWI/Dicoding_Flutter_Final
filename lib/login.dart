@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'input_text.dart';
 
 
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -14,8 +13,18 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _cek = false;
+  String _hint = "Masukan Email";
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+
+  void cekInput(){
+    setState(() {
+      _cek = !_cek;
+      _hint = _cek ? "Masukan Nomor Telepon" : "Masukan Email";
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,7 @@ class _LoginState extends State<Login> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: InputTextWidget(controller: emailTextEditingController, textEditingController: emailTextEditingController, isObscure: false, hint: "Masukan Username",)
+                      child: InputTextWidget(controller: emailTextEditingController, textEditingController: emailTextEditingController, isObscure: false, hint: _hint,)
                   ),
                   const SizedBox(height: 20,),
                   Container(
@@ -76,6 +85,16 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Center(
+                      child: TextButton(
+                        child: Text(
+                          _cek ? "Gunakan Email" : "Gunakan Nomor Telepon"
+                        ),
+                        onPressed: (cekInput)
                       ),
                     ),
                   )
